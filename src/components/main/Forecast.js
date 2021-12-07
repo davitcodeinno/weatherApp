@@ -23,7 +23,7 @@ const Forecast = () => {
   return (
     <WeatherCard maxWidth={1024}>
       <CardContent>
-        <Grid container spacing={{ xs: 2 }} columns={{ xs: 12 }}>
+        <Grid container spacing={{ xs: 2 }}>
           {forecastday.map((d) => {
             const {
               day: {
@@ -35,7 +35,7 @@ const Forecast = () => {
               date,
             } = d;
             return (
-              <Grid item xs={4} key={date}>
+              <Grid item xs={12} sm={12} md={4} key={date}>
                 <Paper
                   sx={{
                     pl: 1,

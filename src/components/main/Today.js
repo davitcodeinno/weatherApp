@@ -23,7 +23,7 @@ const Today = () => {
           {hours.map((h) => {
             const { condition: { text, icon } = {}, time, temp_c } = h;
             return (
-              <Grid item xs={2} sm={1} key={time}>
+              <Grid item xs={4} sm={2} md={1} key={time}>
                 <Paper sx={{ pl: 1, pt: 1, height: "calc(100% - 8px)" }}>
                   <Typography variant="body1">
                     {time.split(" ")?.[1]}

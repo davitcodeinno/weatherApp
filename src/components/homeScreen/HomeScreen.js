@@ -47,7 +47,7 @@ const HomeScreen = () => {
       </FlexCont>
       <FlexCont>
         <Card raised sx={{ width: 250, mb: 4 }}>
-          <CardHeader title="By Zip (USA only)" />
+          <CardHeader title="Search By Zip Code" />
           <CardMedia
             component="img"
             height="256"
