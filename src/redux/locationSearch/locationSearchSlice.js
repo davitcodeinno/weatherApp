@@ -29,12 +29,7 @@ export const locationSearchSlice = createSlice({
       })
       .addCase(searchLocation.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload.filter(
-          ({ lat, lon }, i, arr) =>
-            (arr.findIndex((d) => d.lat === lat) === i &&
-              arr.findIndex((d) => d.lon === lon) === i) ||
-            true
-        );
+        state.data = action.payload;
       });
   },
 });

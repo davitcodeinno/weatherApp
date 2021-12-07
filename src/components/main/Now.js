@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchValue } from "../../redux/locationSearch/locationSearchSlice";
-import {
-  getWeatherData,
-  selectWeatherCurrentData,
-} from "../../redux/weather/weatherSlice";
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectWeatherCurrentData } from "../../redux/weather/weatherSlice";
 import CardContent from "@mui/material/CardContent";
 import WeatherCard from "../shared/WeatherCard";
 import Avatar from "@mui/material/Avatar";
@@ -13,16 +9,8 @@ import Grid from "@mui/material/Grid";
 import { WEATHER_DATA_OBJECTS } from "../../constants/app";
 
 const Now = () => {
-  const searchValue = useSelector(selectSearchValue);
-  const dispatch = useDispatch();
-  const weatherData = useSelector(selectWeatherCurrentData) || {};
+  const weatherData = useSelector(selectWeatherCurrentData);
   const { condition: { text, icon } = {} } = weatherData;
-
-  useEffect(() => {
-    if (searchValue?.name) {
-      dispatch(getWeatherData(searchValue));
-    }
-  }, [searchValue, dispatch]);
 
   return (
     <WeatherCard>

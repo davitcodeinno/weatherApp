@@ -1,12 +1,7 @@
 import { Avatar, CardContent, Grid, Paper, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useSelector } from "react-redux";
-import { selectSearchValue } from "../../redux/locationSearch/locationSearchSlice";
-import {
-  getWeatherData,
-  selectWeatherForecastData,
-} from "../../redux/weather/weatherSlice";
+import { selectWeatherForecastData } from "../../redux/weather/weatherSlice";
 import WeatherCard from "../shared/WeatherCard";
 import m from "moment";
 import LabelAndValue from "../shared/LabelAndValue";
@@ -23,16 +18,7 @@ const FlexItem = styled("div")(({ flex }) => ({
 }));
 
 const Forecast = () => {
-  const searchValue = useSelector(selectSearchValue);
-  const { forecastday = [] } = useSelector(selectWeatherForecastData) || {};
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (searchValue?.name) {
-      dispatch(getWeatherData(searchValue));
-    }
-  }, [searchValue, dispatch]);
+  const { forecastday = [] } = useSelector(selectWeatherForecastData);
 
   return (
     <WeatherCard maxWidth={1024}>

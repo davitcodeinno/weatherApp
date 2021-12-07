@@ -1,17 +1,11 @@
 import { Avatar, CardContent, Grid, Paper, Typography } from "@mui/material";
-import React, { useEffect, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { selectSearchValue } from "../../redux/locationSearch/locationSearchSlice";
-import {
-  getWeatherData,
-  selectWeatherForecastData,
-} from "../../redux/weather/weatherSlice";
+import { selectWeatherForecastData } from "../../redux/weather/weatherSlice";
 import WeatherCard from "../shared/WeatherCard";
 
 const Today = () => {
-  const searchValue = useSelector(selectSearchValue);
-  const { forecastday = [] } = useSelector(selectWeatherForecastData) || {};
+  const { forecastday = [] } = useSelector(selectWeatherForecastData);
   const hours = useMemo(
     () =>
       (
@@ -21,13 +15,6 @@ const Today = () => {
       ).hour || [],
     [forecastday]
   );
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (searchValue?.name) {
-      dispatch(getWeatherData(searchValue));
-    }
-  }, [searchValue, dispatch]);
 
   return (
     <WeatherCard maxWidth={920}>

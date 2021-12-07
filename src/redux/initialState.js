@@ -1,10 +1,6 @@
 export const initialState = {
   weather: {
-    data: {
-      current: null,
-      forecast: null,
-      location: null,
-    },
+    data: null,
     loading: false,
   },
   locationSearch: {
@@ -16,6 +12,6 @@ export const initialState = {
   snackbar: {
     severity: "success",
     message: "asd",
-    open: true,
+    open: false,
   },
 };

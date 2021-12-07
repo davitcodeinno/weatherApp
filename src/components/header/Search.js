@@ -17,6 +17,7 @@ import {
   setSearchText,
   setSearchValue,
 } from "../../redux/locationSearch/locationSearchSlice";
+import { setInitialData } from "../../redux/weather/weatherSlice";
 
 const SearchWrapper = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -70,6 +71,12 @@ export default function Search() {
   useEffect(() => {
     updateDebouncedSearch(searchText);
   }, [searchText, updateDebouncedSearch]);
+
+  useEffect(() => {
+    if (!searchText) {
+      dispatch(setInitialData());
+    }
+  }, [searchText, dispatch]);
 
   useEffect(() => {
     if (debouncedSearchValue) {

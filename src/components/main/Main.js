@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -8,21 +8,32 @@ import { useTheme } from "@mui/material/styles";
 import Now from "./Now";
 import Today from "./Today";
 import Forecast from "./Forecast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  selectData,
   selectIsWeatherDataLoading,
   selectSearchValue,
 } from "../../redux/locationSearch/locationSearchSlice";
 import HomeScreen from "../homeScreen/HomeScreen";
 import { APP_HEADER_HEIGHT } from "../../constants/app";
+import {
+  getWeatherData,
+  selectWeatherData,
+} from "../../redux/weather/weatherSlice";
+import { LinearProgress, Typography } from "@mui/material";
 
 const Main = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
-  const search = useSelector(selectSearchValue);
-  const data = useSelector(selectData);
+  const data = useSelector(selectWeatherData);
   const loading = useSelector(selectIsWeatherDataLoading);
+  const searchValue = useSelector(selectSearchValue);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (searchValue) {
+      dispatch(getWeatherData(searchValue));
+    }
+  }, [searchValue, dispatch]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -34,7 +45,17 @@ const Main = () => {
 
   return (
     <>
-      {!search && !loading && !data?.length ? (
+      {loading && (
+        <LinearProgress
+          sx={{
+            position: "absolute",
+            top: APP_HEADER_HEIGHT,
+            left: 0,
+            right: 0,
+          }}
+        />
+      )}
+      {!data ? (
         <HomeScreen />
       ) : (
         <Box
@@ -49,6 +70,9 @@ const Main = () => {
             <Tab label="Today" />
             <Tab label="3 days" />
           </Tabs>
+          <Typography align="center" variant="h3">
+            {data.location.name}
+          </Typography>
           <SwipeableViews
             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={value}
